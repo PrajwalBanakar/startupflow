@@ -5,6 +5,8 @@ import { ref } from 'vue'
 // Import router for page navigation
 import { useRouter } from 'vue-router'
 
+import { loginUser } from '@/services/api'
+
 // Create router object
 const router = useRouter()
 
@@ -18,15 +20,29 @@ const password = ref('')
 const errorMessage = ref('')
 
 // Function to handle login button click
-const handleLogin = () => {
+const handleLogin = async () => {
   // Check if email or password is empty
   if (email.value === '' || password.value === '') {
     errorMessage.value = 'Please enter email and password'
     return
   }
 
-  // For now, we are not using backend authentication
-  // So after entering any email and password, go to dashboard
+  // const data = await loginUser({
+  //   email: email.value,
+  //   password: password.value
+  // })
+
+  // if(!data.success)
+  // {
+  //   errorMessage.value = data.message
+  //   return
+  // }
+
+  // // Store token in local storage
+  // localStorage.setItem('token', data.token)
+
+  // localStorage.setItem('userEmail', data.user.email)
+
   router.push('/dashboard')
 }
 

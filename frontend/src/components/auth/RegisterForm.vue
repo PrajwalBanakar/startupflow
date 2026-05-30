@@ -5,6 +5,8 @@ import { ref } from 'vue'
 // Import router for page navigation
 import { useRouter } from 'vue-router'
 
+import { registerUser } from '@/services/api'
+
 // Create router object
 const router = useRouter()
 
@@ -16,9 +18,16 @@ const confirmPassword = ref('')
 
 // Store error message
 const errorMessage = ref('')
+const successMessage = ref('')
 
 // Handle create account button click
-const handleRegister = () => {
+const handleRegister = async() => {
+
+    // Clear old messages
+  errorMessage.value = ''
+  successMessage.value = ''
+
+
   // Check empty fields
   if (
     name.value === '' ||
@@ -36,8 +45,25 @@ const handleRegister = () => {
     return
   }
 
-  // For now, no backend
-  // After successful registration, go to login page
+  // // call backend register API
+  // const data = await registerUser({
+  //   name: name.value,
+  //   email: email.value,
+  //   password: password.value
+  // })
+
+  // if(!data.success) {
+  //   errorMessage.value = data.message || 'Registration failed'
+  //   return
+  // }
+  
+  // successMessage.value = 'Registration successful!'
+
+  // setTimeout(() => {
+  //   router.push('/')
+  // }, 2000)
+
+
   router.push('/')
 }
 

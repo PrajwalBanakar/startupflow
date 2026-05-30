@@ -1,9 +1,11 @@
 <script setup>
 // Import ref for reactive data
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 // Import router for logout navigation
 import { useRouter } from 'vue-router'
+
+// import { getTasks, createTask, updateTask, deleteTask } from '@/services/api' 
 
 // Create router object
 const router = useRouter()
@@ -24,7 +26,9 @@ const editedTaskText = ref('')
 const showProfileMenu = ref(false)
 
 // Dummy logged-in user email
-const userEmail = ref('user@startupflow.com')
+const userEmail = ref('demo@gmail.com')
+
+// const userEmail = ref(localStorage.getItem('userEmail'))
 
 // Store task list
 const tasks = ref([
@@ -32,6 +36,19 @@ const tasks = ref([
   { id: 2, title: 'Upload pitch deck' },
   { id: 3, title: 'Schedule mentor meeting' },
 ])
+
+// const tasks = ref([])
+
+// const loadTasks = async () => {
+//   const data = await getTasks()
+//   if(data.success) {
+//     tasks.value = data.tasks
+//   }
+// }
+
+// onMounted(() => {
+//   loadTasks()
+// })
 
 // Filter tasks based on search text
 const filteredTasks = computed(() => {
@@ -41,23 +58,46 @@ const filteredTasks = computed(() => {
 })
 
 // Add new task
-const addTask = () => {
-  if (newTask.value === '') {
-    return
-  }
+// const addTask = () => {
+//   if (newTask.value === '') {
+//     return
+//   }
 
-  tasks.value.push({
-    id: Date.now(),
-    title: newTask.value,
-  })
+//   tasks.value.push({
+//     id: Date.now(),
+//     title: newTask.value,
+//   })
 
-  newTask.value = ''
-}
+//   newTask.value = ''
+// }
+
+
+// const addTask = async () => {
+//   if(newTask.value === '') {
+//     return
+//   }
+
+//   const data = await createTask(newTask.value)
+//   if(data.success) {
+//     tasks.value.unshift(data.task)
+//     newTask.value = ''
+//   }
+// }
 
 // Delete task
 const deleteTask = (taskId) => {
   tasks.value = tasks.value.filter((task) => task.id !== taskId)
 }
+
+// const deleteTask = async (taskId) => {
+//   const data = await deleteTask(taskId)
+
+//   if (data.success) {
+//     tasks.value = tasks.value.filter(
+//       (task) => task.id !== taskId
+//     )
+//   }
+// }
 
 // Start editing task
 const startEdit = (task) => {
@@ -77,6 +117,24 @@ const saveEdit = (taskId) => {
   editedTaskText.value = ''
 }
 
+// const saveEdit = async (taskId) => {
+//   const data = await updateTask(
+//     taskId,
+//     editedTaskText.value
+//   )
+
+//   if (data.success) {
+//     const task = tasks.value.find(
+//       (task) => task.id === taskId
+//     )
+
+//     task.title = editedTaskText.value
+//   }
+
+//   editingTaskId.value = null
+//   editedTaskText.value = ''
+// }
+
 // Toggle profile menu
 const toggleProfileMenu = () => {
   showProfileMenu.value = !showProfileMenu.value
@@ -84,6 +142,9 @@ const toggleProfileMenu = () => {
 
 // Logout user
 const logout = () => {
+
+  // localStorage.removeItem('token')
+  // localStorage.removeItem('userEmail')
   router.push('/')
 }
 </script>
