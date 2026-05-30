@@ -16,17 +16,19 @@ startupflow-frontend
 │  ├─ App.vue
 │  ├─ assets
 │  │  ├─ base.css
-│  │  ├─ logo.svg
 │  │  └─ main.css
 │  ├─ components
+│  │  ├─ auth
+│  │  │  ├─ LoginForm.vue
+│  │  │  └─ RegisterForm.vue
+│  │  └─ dashboard
+│  │     └─ DashboardContent.vue
 │  ├─ main.js
 │  ├─ router
 │  │  └─ index.js
 │  ├─ stores
-│  │  └─ counter.js
 │  └─ views
 │     ├─ DashboardView.vue
-│     ├─ HomeView.vue
 │     ├─ LoginView.vue
 │     └─ RegisterView.vue
 └─ vite.config.js
